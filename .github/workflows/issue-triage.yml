@@ -1,0 +1,77 @@
+name: Issue Triage
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          show_full_output: true
+          claude_args: |
+            --model claude-haiku-4-5
+            --allowedTools "Bash(gh issue list:*)" "Bash(gh issue view:*)" "Bash(gh issue comment:*)" "Bash(find:*)" "Bash(cat:*)" "Bash(grep:*)" "Bash(tee:*)"
+          prompt: |
+            A new issue has been opened. Analyze it thoroughly and post a triage comment.
+
+            Issue number: ${{ github.event.issue.number }}
+            Title: ${{ github.event.issue.title }}
+            Body:
+            ${{ github.event.issue.body }}
+
+            Follow these steps:
+
+            1. **Duplicate / overlap check**
+               Run: gh issue list --state all --limit 200 --json number,title,body,state
+               Compare the new issue's intent and keywords against existing issues.
+               Identify any issues that are duplicates or have overlapping scope.
+
+            2. **Codebase analysis**
+               Explore the repository structure and relevant source files using find, cat, and grep.
+               Understand the current implementation in areas related to this issue.
+               Determine whether the requested feature or fix is already fully or partially
+               implemented. If it is, point to the exact file(s) and line(s) where it exists.
+
+            3. **Already implemented?**
+               Based on your codebase analysis, explicitly state one of:
+               - Already implemented: describe where and how.
+               - Partially implemented: describe what exists and what is missing.
+               - Not implemented: confirm nothing relevant was found.
+
+            4. **Technical concept / implementation suggestion**
+               Based on the issue description and your codebase analysis, propose a concrete
+               implementation plan: which files to change, what approach to take, and any
+               edge cases to consider.
+
+            Write your full analysis to /tmp/triage.md using the tee command with this structure:
+
+            ## Duplicate / Overlap Analysis
+            List any related or duplicate issues with their numbers and a short explanation.
+            If none found, state that explicitly.
+
+            ## Codebase Context
+            Summarize the relevant parts of the code that relate to this issue.
+
+            ## Already Implemented?
+            State clearly whether the requested change is already present, partially present, or absent.
+            If present, include file paths and relevant line references.
+
+            ## Implementation Suggestion
+            Provide a technical concept: files to modify, proposed approach, and key considerations.
+
+            Then post the comment with:
+            gh issue comment ${{ github.event.issue.number }} --body-file /tmp/triage.md
