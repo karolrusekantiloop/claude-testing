@@ -24,6 +24,7 @@ jobs:
           show_full_output: true
           claude_args: |
             --model claude-haiku-4-5
+            --allowedTools "Bash(gh pr diff:*)"
           prompt: |
             Review the changes in this pull request.
             Run: gh pr diff ${{ github.event.pull_request.number }}
