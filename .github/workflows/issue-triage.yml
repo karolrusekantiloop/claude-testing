@@ -23,7 +23,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           show_full_output: true
           claude_args: |
-            --model claude-sonnet-4
+            --model claude-sonnet-5
             --allowedTools "Bash(gh issue list:*)" "Bash(gh issue view:*)" "Bash(gh issue comment:*)" "Bash(find:*)" "Bash(cat:*)" "Bash(grep:*)" "Bash(tee:*)"
           prompt: |
             A new issue has been opened. Analyze it thoroughly and post a triage comment.
