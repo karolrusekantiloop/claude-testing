@@ -19,11 +19,11 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          show_full_output: true
           claude_args: |
             --model claude-haiku-4-5
           prompt: |
-            Review this pull request.
+            Review the changes in this pull request by reading the git diff.
+            Run: git diff origin/main...HEAD
 
             Focus on:
             - HTML correctness
@@ -31,3 +31,5 @@ jobs:
             - Best practices
             - Readability
             - Potential bugs
+
+            Post your findings as a PR review comment.
