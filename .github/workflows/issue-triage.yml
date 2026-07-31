@@ -39,6 +39,8 @@ jobs:
                Run: gh issue list --state all --limit 200 --json number,title,body,state
                Compare the new issue's intent and keywords against existing issues.
                Identify any issues that are duplicates or have overlapping scope.
+               When listing them in the comment, reference each one as #NUMBER so GitHub
+               auto-links them (e.g. "Possible duplicate of #12").
 
             2. **Codebase analysis**
                Explore the repository structure and relevant source files using find, cat, and grep.
@@ -60,8 +62,8 @@ jobs:
             Write your full analysis to /tmp/triage.md using the tee command with this structure:
 
             ## Duplicate / Overlap Analysis
-            List any related or duplicate issues with their numbers and a short explanation.
-            If none found, state that explicitly.
+            List any related or duplicate issues using #NUMBER references so GitHub auto-links them
+            (e.g. "Possible duplicate of #12, overlaps with #34"). If none found, state that explicitly.
 
             ## Codebase Context
             Summarize the relevant parts of the code that relate to this issue.
