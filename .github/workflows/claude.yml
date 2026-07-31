@@ -24,7 +24,7 @@ jobs:
           show_full_output: true
           claude_args: |
             --model claude-haiku-4-5
-            --allowedTools "Bash(gh pr diff:*)"
+            --allowedTools "Bash(gh pr diff:*)" "Bash(gh pr review:*)"
           prompt: |
             Review the changes in this pull request.
             Run: gh pr diff ${{ github.event.pull_request.number }}
@@ -36,4 +36,4 @@ jobs:
             - Readability
             - Potential bugs
 
-            Post your findings as a PR review comment.
+            Post your findings as a PR review comment using the GithubComment tool.
