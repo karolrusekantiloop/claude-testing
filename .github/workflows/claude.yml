@@ -15,15 +15,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          show_full_output: true
           claude_args: |
             --model claude-haiku-4-5
           prompt: |
-            Review the changes in this pull request by reading the git diff.
-            Run: git diff origin/main...HEAD
+            Review the changes in this pull request.
+            Run: gh pr diff ${{ github.event.pull_request.number }}
 
             Focus on:
             - HTML correctness
