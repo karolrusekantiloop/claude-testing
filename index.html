@@ -1,74 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Awesome Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Demo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body bgcolor="white">
+<body>
 
-<center>
-<h1>Welcome to my website</h1>
-</center>
+<div class="container">
+    <h1>Modal Demo</h1>
 
-<img src="hero.jpg">
+    <button id="openModalBtn">
+        Open popup
+    </button>
+</div>
 
-<h2>About us</h2>
+<div id="modal" class="modal hidden">
+    <div class="modal-content">
+        <h2>Welcome!</h2>
 
-<p>
-We build websites for everyone and we have been doing it for a long time.
-Our goal is to make amazing products that everyone loves.
-</p>
+        <p>
+            This popup is opened with JavaScript.
+        </p>
 
-<form>
-    <input type="text" placeholder="Your name">
-    <input type="email">
-    <button>Send</button>
-</form>
+        <button id="closeModalBtn">
+            Close
+        </button>
+    </div>
+</div>
 
-<h2>Products</h2>
-
-<table border="1">
-<tr>
-<td>Product</td>
-<td>Price</td>
-</tr>
-<tr>
-<td>Laptop
-<td>1500€
-</tr>
-<tr>
-<td>Phone</td>
-<td>900€</td>
-</tr>
-<tr>
-<td>Keyboard</td>
-<td>90€</td>
-</tr>
-</table>
-
-<h2>Latest News</h2>
-
-<a href="https://example.com" target="_blank">Read more</a>
-
-<ul>
-<li>Fast delivery
-<li>Great support
-<li>Best quality
-</ul>
-
-<button onclick="alert('Thanks for clicking!')">Click me</button>
-
-<script>
-var password = "admin123";
-console.log(password);
-
-document.write("<p>Generated content</p>");
-</script>
-
-<img src="team.jpg" width="1500" height="200">
-
-<footer>
-Copyright 2026
-</footer>
+<script src="script.js"></script>
 
 </body>
 </html>
